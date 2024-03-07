@@ -1,6 +1,8 @@
 package com.gildedrose;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class GildedRose {
@@ -82,12 +84,12 @@ class GildedRose {
     public void updateQuality() {
 
         Stream<Item> itemStream = Arrays.stream(items);
-        itemStream.forEach(item -> {
-            if(this.canBeSold(item)){
+        itemStream
+            .filter(this::canBeSold)
+            .forEach(item -> {
                 this.denoteSellIn(item);
                 this.denoteQuality(item);
-            }
-        });
+            });
 
 
         //Keeping the old cold commented as reference

@@ -86,17 +86,17 @@ class GildedRoseTest {
     }
 
     @Test
-    //I am not sure if a passed conjured item should decrease 4x as fast
-    //2x as fast because it has passed and 2x because it is conjured
-    //in doubt I didn't implement this rule
     void conjuredItemDegradesTwiceAsFast() {
-        Item[] items = new Item[] { new Item("Conjured", 10, 10) };
+        Item[] items = new Item[] {
+            new Item("Conjured", 10, 10),
+            new Item("Conjured", 0, 10)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
 
-        Item item = items[0];
-        assertEquals(9, item.sellIn);
-        assertEquals(8, item.quality);
+        assertEquals(9, items[0].sellIn);
+        assertEquals(8, items[0].quality);
+        assertEquals(-1, items[1].sellIn);
+        assertEquals(6, items[1].quality);
     }
 
 }
